@@ -8,11 +8,13 @@ import {
   Col,
   Button,
   message,
+  Dropdown,
 } from "antd";
 import {
   PictureOutlined,
   LogoutOutlined,
   HomeOutlined,
+  DownOutlined,
 } from "@ant-design/icons";
 
 const { Header, Content, Footer } = Layout;
@@ -192,6 +194,34 @@ const App = () => {
     );
   }
 
+  // Dropdown içindeki menü öğeleri
+  const dropdownMenu = (
+    <Menu onClick={handleMenuClick} selectedKeys={[selectedMenu]}>
+      <Menu.Item
+        key="home"
+        icon={<HomeOutlined />}
+        style={{ borderRadius: 12, minWidth: 120 }}
+      >
+        Anasayfa
+      </Menu.Item>
+      <Menu.Item
+        key="events"
+        icon={<PictureOutlined />}
+        style={{ borderRadius: 12, minWidth: 120 }}
+      >
+        Etkinlikler
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item
+        key="logout"
+        icon={<LogoutOutlined />}
+        style={{ borderRadius: 12, minWidth: 120 }}
+      >
+        Çıkış Yap
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <Layout
       style={{
@@ -224,72 +254,21 @@ const App = () => {
           Erasmus+ Project
         </div>
 
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          selectedKeys={[selectedMenu]}
-          onClick={handleMenuClick}
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: 6,
-            whiteSpace: "nowrap",
-            overflowX: "auto",
-          }}
-        >
-          <Menu.Item
+        {/* Dropdown menü sağda */}
+        <Dropdown overlay={dropdownMenu} trigger={['click']} placement="bottomRight">
+          <Button
+            type="text"
             style={{
-              borderRadius: 12,
-              margin: "0 4px",
-              padding: "4px 12px",
-              minWidth: "unset",
-              lineHeight: 1.2,
-              fontSize: 14,
+              color: "white",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-            }}
-            key="home"
-            icon={<HomeOutlined />}
-          >
-            Anasayfa
-          </Menu.Item>
-          <Menu.Item
-            style={{
-              borderRadius: 12,
-              margin: "0 4px",
-              padding: "4px 12px",
-              minWidth: "unset",
-              lineHeight: 1.2,
+              gap: 6,
               fontSize: 14,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
             }}
-            key="events"
-            icon={<PictureOutlined />}
           >
-            Etkinlikler
-          </Menu.Item>
-          <Menu.Item
-            style={{
-              borderRadius: 12,
-              margin: "0 4px",
-              padding: "4px 12px",
-              minWidth: "unset",
-              lineHeight: 1.2,
-              fontSize: 14,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            key="logout"
-            icon={<LogoutOutlined />}
-            // onClick kaldırıldı çünkü handleMenuClick'de logout yönetiliyor
-          >
-            Çıkış Yap
-          </Menu.Item>
-        </Menu>
+            Menü <DownOutlined />
+          </Button>
+        </Dropdown>
       </Header>
 
       <Content style={{ padding: 0, margin: 0, width: "100%" }}>
