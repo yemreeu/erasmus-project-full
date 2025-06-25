@@ -276,19 +276,41 @@ const App = () => {
           }}
         >
           {/* Logo Div */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <img
-              src="/images/logo.png"
-              alt="Logo"
-              style={{
-                height: 24,
-                width: "auto",
-              }}
-            />
-          </div>
+          <div
+  style={{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 0, // Logo ve text arasındaki boşluğu kaldır
+    padding: "16px 0", // Üst ve alttan sabit boşluk
+  }}
+>
+  <img
+    src="/images/logo.png"
+    alt="Logo"
+    style={{
+      height: 24,
+      width: "auto",
+      margin: 0, // Tüm margin'ları kaldır
+    }}
+  />
+  <span
+    style={{
+      color: "white",
+      fontWeight: "bold",
+      fontSize: 18,
+      whiteSpace: "nowrap",
+      textAlign: "left",
+      margin: 0, // Margin'ı kaldır
+      lineHeight: 1, // Line height'ı minimize et
+    }}
+  >
+    Erasmus+ Project
+  </span>
+</div>
 
           {/* Text Div */}
-          <div
+          {/* <div
             style={{
               color: "white",
               fontWeight: "bold",
@@ -298,7 +320,7 @@ const App = () => {
             }}
           >
             Erasmus+ Project
-          </div>
+          </div> */}
         </div>
 
         {/* Dropdown menü sağda */}
