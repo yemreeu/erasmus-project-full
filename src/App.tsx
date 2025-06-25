@@ -237,13 +237,52 @@ const App = () => {
             overflowX: "auto",
           }}
         >
-          <Menu.Item key="home" icon={<HomeOutlined />}>
+          <Menu.Item
+            style={{
+              borderRadius: 12,
+              margin: "0 4px",
+              padding: "4px 12px",
+              minWidth: "unset",
+              lineHeight: 1.2,
+              fontSize: 14,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            key="home"
+            icon={<HomeOutlined />}
+          >
             Anasayfa
           </Menu.Item>
-          <Menu.Item key="events" icon={<PictureOutlined />}>
+          <Menu.Item
+            style={{
+              borderRadius: 12,
+              margin: "0 4px",
+              padding: "4px 12px",
+              minWidth: "unset",
+              lineHeight: 1.2,
+              fontSize: 14,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            key="events"
+            icon={<PictureOutlined />}
+          >
             Etkinlikler
           </Menu.Item>
           <Menu.Item
+            style={{
+              borderRadius: 12,
+              margin: "0 4px",
+              padding: "4px 12px",
+              minWidth: "unset",
+              lineHeight: 1.2,
+              fontSize: 14,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
             key="logout"
             icon={<LogoutOutlined />}
             // onClick kaldırıldı çünkü handleMenuClick'de logout yönetiliyor
