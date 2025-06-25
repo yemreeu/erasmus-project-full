@@ -232,7 +232,7 @@ const App = () => {
           style={{
             display: "flex",
             justifyContent: "flex-end",
-            gap: 24,
+            gap: 12,
             whiteSpace: "nowrap",
             overflowX: "auto",
           }}
