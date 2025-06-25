@@ -45,6 +45,13 @@ const HomeContent: React.FC<{ onNavigate: (page: MenuKey) => void }> = ({
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
       }}
     >
+      <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+        <img
+          src="/images/erasmus.png"
+          alt="Logo"
+          style={{ height: 50, width: "auto" }}
+        />
+      </span>
       <Title level={2}>Liv Koleji Erasmus+ Projesine Hoşgeldiniz!</Title>
       <Paragraph
         style={{
@@ -97,6 +104,21 @@ const App = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuKey>("home");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [passwordInput, setPasswordInput] = useState<string>("");
+
+  const useWindowWidth = () => {
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => setWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return width;
+  };
+
+  const width = useWindowWidth();
+  const isMobile = width < 375;
 
   useEffect(() => {
     document.body.style.margin = "0";
@@ -242,20 +264,49 @@ const App = () => {
         }}
       >
         <div
-          style={{
-            color: "white",
-            fontWeight: "bold",
-            fontSize: 18,
-            cursor: "pointer",
-            whiteSpace: "nowrap",
-          }}
           onClick={() => setSelectedMenu("home")}
+          style={{
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: isMobile ? 0 : 8,
+            cursor: "pointer",
+            paddingTop: isMobile ? 12 : 0,
+          }}
         >
-          Erasmus+ Project
+          {/* Logo Div */}
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <img
+              src="/images/logo.png"
+              alt="Logo"
+              style={{
+                height: 24,
+                width: "auto",
+              }}
+            />
+          </div>
+
+          {/* Text Div */}
+          <div
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              fontSize: 18,
+              whiteSpace: "nowrap",
+              textAlign: isMobile ? "center" : "left",
+            }}
+          >
+            Erasmus+ Project
+          </div>
         </div>
 
         {/* Dropdown menü sağda */}
-        <Dropdown overlay={dropdownMenu} trigger={['click']} placement="bottomRight">
+        <Dropdown
+          overlay={dropdownMenu}
+          trigger={["click"]}
+          placement="bottomRight"
+        >
           <Button
             type="text"
             style={{
