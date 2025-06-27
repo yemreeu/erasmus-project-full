@@ -7,12 +7,10 @@ import {
   Row,
   Col,
   Button,
-  message,
   Dropdown,
 } from "antd";
 import {
   PictureOutlined,
-  LogoutOutlined,
   HomeOutlined,
   DownOutlined,
 } from "@ant-design/icons";
@@ -26,10 +24,6 @@ const imageList = Array.from(
   { length: 18 },
   (_, i) => `/images/photo${i + 3}.jpeg`
 );
-
-const PASSWORD_KEY = "project_password";
-
-const ENV_PASSWORD = import.meta.env.VITE_APP_PASSWORD;
 
 const HomeContent: React.FC<{ onNavigate: (page: MenuKey) => void }> = ({
   onNavigate,
@@ -102,8 +96,6 @@ const HomeContent: React.FC<{ onNavigate: (page: MenuKey) => void }> = ({
 
 const App = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuKey>("home");
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [passwordInput, setPasswordInput] = useState<string>("");
 
   const useWindowWidth = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -133,88 +125,9 @@ const App = () => {
     document.documentElement.style.width = "100%";
   }, []);
 
-  useEffect(() => {
-    const savedPassword = localStorage.getItem(PASSWORD_KEY);
-    if (savedPassword === ENV_PASSWORD) {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  const handleLogin = () => {
-    if (passwordInput === ENV_PASSWORD) {
-      localStorage.setItem(PASSWORD_KEY, passwordInput);
-      setIsAuthenticated(true);
-      setSelectedMenu("home");
-      message.success("Başarıyla giriş yapıldı!");
-    } else {
-      message.error("Yanlış şifre!");
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem(PASSWORD_KEY);
-    setIsAuthenticated(false);
-    setSelectedMenu("home");
-    message.info("Çıkış yapıldı.");
-  };
-
-  // Menü tıklama fonksiyonu - logout dışındakileri seçili yap, logout yap
   const handleMenuClick = (e: { key: string }) => {
-    if (e.key === "logout") {
-      handleLogout();
-    } else {
-      setSelectedMenu(e.key as MenuKey);
-    }
+    setSelectedMenu(e.key as MenuKey);
   };
-
-  if (!isAuthenticated) {
-    return (
-      <Layout
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: 0,
-          margin: 0,
-          background: "#f0f2f5",
-          width: "100vw",
-        }}
-      >
-        <div
-          style={{
-            background: "white",
-            padding: 40,
-            borderRadius: 8,
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            width: 300,
-            textAlign: "center",
-          }}
-        >
-          <Title level={3}>Giriş Yapınız</Title>
-          <input
-            type="password"
-            value={passwordInput}
-            onChange={(e) => setPasswordInput(e.target.value)}
-            placeholder="Şifre"
-            style={{
-              width: "100%",
-              padding: 8,
-              marginBottom: 16,
-              fontSize: 16,
-              borderRadius: 4,
-              border: "1px solid #ccc",
-              boxSizing: "border-box",
-            }}
-            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-          />
-          <Button type="primary" onClick={handleLogin} block>
-            Giriş
-          </Button>
-        </div>
-      </Layout>
-    );
-  }
 
   // Dropdown içindeki menü öğeleri
   const dropdownMenu = (
@@ -232,14 +145,6 @@ const App = () => {
         style={{ borderRadius: 12, minWidth: 120 }}
       >
         Etkinlikler
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item
-        key="logout"
-        icon={<LogoutOutlined />}
-        style={{ borderRadius: 12, minWidth: 120 }}
-      >
-        Çıkış Yap
       </Menu.Item>
     </Menu>
   );
@@ -277,50 +182,37 @@ const App = () => {
         >
           {/* Logo Div */}
           <div
-  style={{
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    gap: 0, // Logo ve text arasındaki boşluğu kaldır
-    padding: "16px 0", // Üst ve alttan sabit boşluk
-  }}
->
-  <img
-    src="/images/logo.png"
-    alt="Logo"
-    style={{
-      height: 24,
-      width: "auto",
-      margin: 0, // Tüm margin'ları kaldır
-    }}
-  />
-  <span
-    style={{
-      color: "white",
-      fontWeight: "bold",
-      fontSize: 18,
-      whiteSpace: "nowrap",
-      textAlign: "left",
-      margin: 0, // Margin'ı kaldır
-      lineHeight: 1, // Line height'ı minimize et
-    }}
-  >
-    Erasmus+ Project
-  </span>
-</div>
-
-          {/* Text Div */}
-          {/* <div
             style={{
-              color: "white",
-              fontWeight: "bold",
-              fontSize: 18,
-              whiteSpace: "nowrap",
-              textAlign: isMobile ? "center" : "left",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              gap: 0, // Logo ve text arasındaki boşluğu kaldır
+              padding: "16px 0", // Üst ve alttan sabit boşluk
             }}
           >
-            Erasmus+ Project
-          </div> */}
+            <img
+              src="/images/logo.png"
+              alt="Logo"
+              style={{
+                height: 24,
+                width: "auto",
+                margin: 0, // Tüm margin'ları kaldır
+              }}
+            />
+            <span
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                fontSize: 18,
+                whiteSpace: "nowrap",
+                textAlign: "left",
+                margin: 0, // Margin'ı kaldır
+                lineHeight: 1, // Line height'ı minimize et
+              }}
+            >
+              Erasmus+ Project
+            </span>
+          </div>
         </div>
 
         {/* Dropdown menü sağda */}
